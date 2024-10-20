@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.559" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnLoginMain"
         android:layout_width="344dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
@@ -32,14 +32,14 @@
         android:text="Ingresa"
         android:textColor="@color/black"
         app:cornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister"
+        app:layout_constraintBottom_toTopOf="@id/btnRegisterMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="@color/yellow" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnRegisterMain"
         android:layout_width="344dp"
         android:layout_height="55dp"
         android:layout_marginBottom="124dp"
@@ -56,8 +56,8 @@
         android:id="@+id/imageView"
         android:layout_width="297dp"
         android:layout_height="251dp"
-        android:layout_marginBottom="112dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoginMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logotemporal" />

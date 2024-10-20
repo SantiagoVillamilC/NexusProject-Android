@@ -3,31 +3,31 @@ package com.example.nexusproject_android
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nexusproject_android.LoginActivity
-import com.example.nexusproject_android.RegisterActivity
+import com.example.nexusproject_android.MainActivity
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_login)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btnLoginMain = findViewById<Button>(R.id.btnLoginMain)
-        btnLoginMain.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+        val btnLoginPrincipal = findViewById<Button>(R.id.btnLoginPrincipal)
+        btnLoginPrincipal.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        val btnRegisterMain = findViewById<Button>(R.id.btnRegisterMain)
-        btnRegisterMain.setOnClickListener {
+        val btnRegisterLogin = findViewById<Button>(R.id.btnRegisterLogin)
+        btnRegisterLogin.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
