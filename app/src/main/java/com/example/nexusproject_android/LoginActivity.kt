@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.nexusproject_android.Cliente.MainActivityCliente
 import com.example.nexusproject_android.MainActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -22,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         val btnLoginPrincipal = findViewById<Button>(R.id.btnLoginPrincipal)
         btnLoginPrincipal.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivityCliente::class.java)
             startActivity(intent)
         }
 
