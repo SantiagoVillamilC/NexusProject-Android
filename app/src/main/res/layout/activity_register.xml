@@ -23,24 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/password2"
-        android:layout_width="362dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="72dp"
-        android:autofillHints="@string/prompt_password"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/yellow"
-        android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegisterPrincipal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/btnRegisterPrincipal"
         android:layout_width="285dp"
@@ -81,12 +63,27 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:id="@+id/username2"
+        android:layout_width="361dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="36dp"
+        android:autofillHints="@string/prompt_email"
+        android:hint="@string/prompt_email"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/yellow"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegisterPrincipal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
         android:id="@+id/username"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="220dp"
-        android:autofillHints="@string/prompt_email"
-        android:hint="@string/prompt_email"
+        android:autofillHints="Nombre"
+        android:hint="Nombre"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textColor="@color/yellow"
@@ -95,7 +92,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839" />
+        app:layout_constraintVertical_bias="0.75" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="362dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints="Contraseña"
+        android:hint="Contraseña"
+        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/yellow"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/username2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView7"

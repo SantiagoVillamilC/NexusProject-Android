@@ -1,6 +1,8 @@
-package com.example.nexusproject_android.Cliente
+package com.example.nexusproject_android
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +12,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nexusproject_android.R
-
-data class Product(
-    val name: String,
-    val price: String,
-    val imageUrl: Int
-)
+import com.example.nexusproject_android.CartActivity
+import android.widget.Toast
 
 class MainActivityCliente : AppCompatActivity() {
     private val productList = listOf(
@@ -25,12 +22,13 @@ class MainActivityCliente : AppCompatActivity() {
         Product("Producto 3", "$20.00", R.drawable.logotemporal),
         Product("Producto 4", "$25.00", R.drawable.logotemporal),
         Product("Producto 5", "$30.00", R.drawable.logotemporal),
-        Product("Producto 6", "$35.00", R.drawable.logotemporal),
-        Product("Producto 7", "$40.00", R.drawable.logotemporal),
-        Product("Producto 8", "$45.00", R.drawable.logotemporal),
-        Product("Producto 9", "$50.00", R.drawable.logotemporal),
-        Product("Producto 10", "$55.00", R.drawable.logotemporal)
+        Product("Producto 6", "$40.00", R.drawable.logotemporal),
+        Product("Producto 7", "$55.00", R.drawable.logotemporal),
+        Product("Producto 8", "$60.00", R.drawable.logotemporal),
+        Product("Producto 9", "$75.00", R.drawable.logotemporal),
+        Product("Producto 10", "$80.00", R.drawable.logotemporal)
     )
+    private val cartItems = mutableListOf<CartItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +37,14 @@ class MainActivityCliente : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = ProductAdapter(productList)
+
+        val btnViewCart = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnViewCart)
+        btnViewCart.setOnClickListener {
+            Log.d("MainActivityCliente", "Cart Items: $cartItems")  // Log para depurar el contenido del carrito
+            val intent = Intent(this, CartActivity::class.java)
+            intent.putParcelableArrayListExtra("cartItems", ArrayList(cartItems))
+            startActivity(intent)
+        }
     }
 
     private inner class ProductAdapter(private val products: List<Product>) :
@@ -64,9 +70,19 @@ class MainActivityCliente : AppCompatActivity() {
             holder.productImage.setImageResource(product.imageUrl)
 
             holder.addToCartButton.setOnClickListener {
-                // Lógica para agregar al carrito (opcional)
+                val cartItem = cartItems.find { it.product.name == product.name }
+                if (cartItem != null) {
+                    cartItem.quantity++
+                    Toast.makeText(holder.itemView.context, "${product.name} cantidad aumentada a ${cartItem.quantity}", Toast.LENGTH_SHORT).show()
+                    Log.d("ProductAdapter", "Increased quantity of ${product.name} to ${cartItem.quantity}")
+                } else {
+                    cartItems.add(CartItem(product, 1))
+                    Toast.makeText(holder.itemView.context, "${product.name} agregado al carrito", Toast.LENGTH_SHORT).show()
+                    Log.d("ProductAdapter", "Added ${product.name} to cart with quantity 1")
+                }
             }
         }
 
         override fun getItemCount() = products.size
-}}
+    }
+}

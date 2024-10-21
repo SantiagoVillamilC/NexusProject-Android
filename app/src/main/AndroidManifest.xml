@@ -13,7 +13,10 @@
         android:theme="@style/Theme.NexusProject_Android"
         tools:targetApi="31">
         <activity
-            android:name=".Cliente.MainActivityCliente"
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityCliente"
             android:exported="false" />
         <activity
             android:name=".Home"
