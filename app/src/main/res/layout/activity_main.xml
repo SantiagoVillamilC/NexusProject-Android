@@ -5,61 +5,85 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/wave"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/lobster"
         android:text="@string/app_name"
-        android:textColor="@color/yellow"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        android:textColor="@color/purple"
+        android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.559" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <Button
-        android:id="@+id/btnLoginMain"
-        android:layout_width="344dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/yellow"
-        android:text="Ingresa"
-        android:textColor="@color/black"
-        app:cornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@id/btnRegisterMain"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/pacifico"
+        android:text="Viaja tan lejos como puedas"
+        android:textColor="@color/purple"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/yellow" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btnRegisterMain"
-        android:layout_width="344dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="124dp"
-        android:backgroundTint="@color/darkGray"
+        android:layout_width="394dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/darkPink"
+        android:fontFamily="@font/pacifico"
         android:text="Registrate"
-        android:textColor="@color/yellow"
+        android:textColor="@color/purple"
+        android:textSize="25sp"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginMain"
+        app:rippleColor="@color/blue" />
+
+    <Button
+        android:id="@+id/btnLoginMain"
+        android:layout_width="394dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/pacifico"
+        android:text="Iniciar Sesión"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:rippleColor="@color/orange" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="297dp"
-        android:layout_height="251dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoginMain"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logotemporal" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/globo_aerostatico" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

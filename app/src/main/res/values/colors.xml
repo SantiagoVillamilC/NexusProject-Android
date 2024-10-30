@@ -5,4 +5,10 @@
     <color name="lightGray">#E2E2E2</color>
     <color name="darkGray">#3E3E3A</color>
     <color name="yellow">#FFC736</color>
+
+    <color name="orange">#FFA145</color>
+    <color name="blue">#6A7ABB</color>
+    <color name="lightPink">#FFEFEE</color>
+    <color name="darkPink">#F3CBC9</color>
+    <color name="purple">#63566D</color>
 </resources>
