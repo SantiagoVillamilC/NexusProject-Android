@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/lightGray"
+    android:background="@color/orange"
     android:padding="8dp">
 
     <TextView
@@ -11,30 +11,34 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/white"
         android:text="Product Name"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/productQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
+        android:textColor="@color/white"
         android:layout_marginEnd="8dp"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/increaseButton"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkGray"
-        android:textColor="@color/yellow"
-        android:text="+" />
+        android:backgroundTint="@color/blue"
+        android:text="+"
+        android:textSize="15sp"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/decreaseButton"
-        android:layout_width="wrap_content"
-        android:backgroundTint="@color/darkGray"
-        android:textColor="@color/yellow"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:text="-" />
+        android:backgroundTint="@color/blue"
+        android:text="-"
+        android:textSize="15sp"
+        android:textColor="@color/white" />
 </LinearLayout>
