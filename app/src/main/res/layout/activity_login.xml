@@ -26,9 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
-        android:text="Regitrate aquí, ahora mismo"
+        android:text="Regitrate aquí"
         android:textAllCaps="false"
-        android:fontFamily="@font/pacifico"
         android:textColor="@color/orange"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -38,10 +37,10 @@
         app:rippleColor="@color/orange" />
 
     <EditText
-        android:id="@+id/password3"
+        android:id="@+id/txtContraseñaLogin"
         android:layout_width="362dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="32dp"
         android:autofillHints="Contraseña"
         android:hint="Contraseña"
         android:imeActionLabel="@string/action_sign_in_short"
@@ -50,22 +49,23 @@
         android:selectAllOnFocus="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:textSize="22.5sp"
         app:layout_constraintBottom_toTopOf="@+id/btnLoginPrincipal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnLoginPrincipal"
-        android:layout_width="394dp"
-        android:layout_height="70dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue"
         android:enabled="true"
-        android:fontFamily="@font/pacifico"
         android:text="Ingresar"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toTopOf="@+id/forgotPass"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,17 +75,17 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="44dp"
         android:fontFamily="@font/pacifico"
         android:text="¡Que bueno tenerte devuelta!"
         android:textColor="@color/white"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/username3"
+        app:layout_constraintBottom_toTopOf="@+id/txtNombreUsuarioLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/username3"
+        android:id="@+id/txtNombreUsuarioLogin"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginBottom="20dp"
@@ -96,7 +96,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="22.5sp"
-        app:layout_constraintBottom_toTopOf="@+id/password3"
+        app:layout_constraintBottom_toTopOf="@+id/txtContraseñaLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

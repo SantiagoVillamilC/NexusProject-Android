@@ -22,7 +22,7 @@
             android:id="@+id/welcomeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Bienvenido/a Usuario"
+            android:text="Hola, Usuario"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:fontFamily="@font/pacifico"
