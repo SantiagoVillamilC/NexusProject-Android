@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexusproject_android.CartActivity
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog // Asegúrate de importar esto
 
 class MainActivityCliente : AppCompatActivity() {
     private val productList = listOf(
@@ -34,16 +35,38 @@ class MainActivityCliente : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_cliente)
 
+        // Recibe el nombre de usuario del Intent
+        val nombreUsuario = intent.getStringExtra("usuario_nombre")
+
+        // Configura el saludo en el TextView
+        val txtWelcomeText = findViewById<TextView>(R.id.txtwelcomeText)
+        txtWelcomeText.text = "Hola, $nombreUsuario"
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = ProductAdapter(productList)
 
         val btnViewCart = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnViewCart)
         btnViewCart.setOnClickListener {
-            Log.d("MainActivityCliente", "Cart Items: $cartItems")  // Log para depurar el contenido del carrito
+            Log.d("MainActivityCliente", "Cart Items: $cartItems")
             val intent = Intent(this, CartActivity::class.java)
             intent.putParcelableArrayListExtra("cartItems", ArrayList(cartItems))
             startActivity(intent)
+        }
+
+        // Configuración del botón de cierre de sesión
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+        btnLogout.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Cerrar Sesión")
+                .setMessage("¿Estás seguro de que deseas cerrar sesión?")
+                .setPositiveButton("Sí") { _, _ ->
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
     }
 

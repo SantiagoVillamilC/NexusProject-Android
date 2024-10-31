@@ -119,6 +119,32 @@ class dbUsuarios(context: Context) : DbHelper(context) {
         return correcto
     }
 
+    fun verUsuarioPorNombreYContrasena(nombreUsuario: String, contrasena: String): Usuario? {
+        val dbHelper = DbHelper(context)
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        var usuario: Usuario? = null
+        var cursorUsuario: Cursor? = null
+
+        try {
+            cursorUsuario = db.rawQuery("SELECT * FROM $TABLE_USUARIOS WHERE nombre_usuario = ? AND contrasena = ?", arrayOf(nombreUsuario, contrasena))
+            if (cursorUsuario.moveToFirst()) {
+                usuario = Usuario(
+                    id = cursorUsuario.getInt(0),
+                    nombreUsuario = cursorUsuario.getString(1),
+                    contrasena = cursorUsuario.getString(2),
+                    correoElectronico = cursorUsuario.getString(3)
+                )
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        } finally {
+            cursorUsuario?.close()
+            db.close()
+        }
+        return usuario
+    }
+
+
     // Método para eliminar un usuario de la base de datos
     fun eliminarUsuario(id: Int): Boolean {
         var correcto = false
