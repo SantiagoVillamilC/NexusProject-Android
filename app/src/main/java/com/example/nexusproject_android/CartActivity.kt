@@ -1,17 +1,16 @@
 package com.example.nexusproject_android
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nexusproject_android.CartItem
-import com.example.nexusproject_android.R
+import android.widget.Toast
 
 class CartActivity : AppCompatActivity() {
     private lateinit var cartItems: MutableList<CartItem>
@@ -21,7 +20,6 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        // Obtener cartItems del Intent
         cartItems = intent.getParcelableArrayListExtra<CartItem>("cartItems") ?: mutableListOf()
 
         emptyCartMessage = findViewById(R.id.emptyCartMessage)
@@ -29,7 +27,6 @@ class CartActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CartAdapter(cartItems)
 
-        // Verificar si el carrito está vacío y mostrar el mensaje
         updateCartMessage()
     }
 
@@ -49,6 +46,7 @@ class CartActivity : AppCompatActivity() {
             val productQuantity: TextView = view.findViewById(R.id.productQuantity)
             val increaseButton: Button = view.findViewById(R.id.increaseButton)
             val decreaseButton: Button = view.findViewById(R.id.decreaseButton)
+            val productImage: ImageView = view.findViewById(R.id.productImage)  // ImageView para mostrar la imagen
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -62,10 +60,17 @@ class CartActivity : AppCompatActivity() {
             holder.productName.text = cartItem.product.name
             holder.productQuantity.text = cartItem.quantity.toString()
 
+            // Cargar la imagen desde el nombre del recurso drawable
+            val imageResId = holder.itemView.context.resources.getIdentifier(
+                cartItem.product.imageUrl, "drawable", holder.itemView.context.packageName
+            )
+            holder.productImage.setImageResource(imageResId)
+
             holder.increaseButton.setOnClickListener {
                 cartItem.quantity++
                 notifyItemChanged(position)
-                updateCartMessage()  // Actualizar el mensaje si el carrito cambia
+                updateCartMessage()
+                Toast.makeText(holder.itemView.context, "Cantidad de ${cartItem.product.name} aumentada", Toast.LENGTH_SHORT).show()
             }
 
             holder.decreaseButton.setOnClickListener {
@@ -76,7 +81,8 @@ class CartActivity : AppCompatActivity() {
                     cartItems.removeAt(position)
                     notifyItemRemoved(position)
                 }
-                updateCartMessage()  // Actualizar el mensaje si el carrito cambia
+                updateCartMessage()
+                Toast.makeText(holder.itemView.context, "Cantidad de ${cartItem.product.name} disminuida", Toast.LENGTH_SHORT).show()
             }
         }
 

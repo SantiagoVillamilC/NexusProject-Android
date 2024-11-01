@@ -38,7 +38,8 @@ open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
                 nombre TEXT NOT NULL,
                 descripcion TEXT,
                 precio REAL NOT NULL,
-                cantidad_stock INTEGER NOT NULL
+                cantidad_stock INTEGER NOT NULL,
+                image_url TEXT
             )
         """.trimIndent()
         db.execSQL(createProductosTable)

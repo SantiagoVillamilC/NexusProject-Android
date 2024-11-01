@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.nexusproject_android.LoginActivity
 import com.example.nexusproject_android.RegisterActivity
 import com.example.nexusproject_android.db.DbHelper
+import com.example.nexusproject_android.db.dbProductos
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

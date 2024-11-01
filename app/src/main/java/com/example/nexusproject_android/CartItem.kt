@@ -6,18 +6,18 @@ import android.os.Parcelable
 data class Product(
     val name: String,
     val price: String,
-    val imageUrl: Int
+    val imageUrl: String  // Cambiado a String para el nombre del recurso drawable
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readInt()
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(price)
-        parcel.writeInt(imageUrl)
+        parcel.writeString(imageUrl)  // Guardar imageUrl como String
     }
 
     override fun describeContents(): Int {
@@ -40,7 +40,7 @@ data class CartItem(
     var quantity: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Product::class.java.classLoader) ?: Product("", "", 0),
+        parcel.readParcelable(Product::class.java.classLoader) ?: Product("", "", ""),
         parcel.readInt()
     )
 
