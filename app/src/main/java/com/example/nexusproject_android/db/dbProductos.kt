@@ -26,7 +26,7 @@ class dbProductos(context: Context) : DbHelper(context) {
         cursor.close()
         db.close()
 
-        // Solo insertar productos si la tabla está vacía
+        // Solo inserta los productos si la tabla esta vacia
         if (count == 0) {
             val productos = listOf(
                 Producto(nombre = "Mochila de Viaje", descripcion = "Mochila de 40L", precio = 1200.0, cantidadStock = 10, imageUrl = R.drawable.maleta),

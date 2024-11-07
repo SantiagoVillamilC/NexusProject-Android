@@ -51,9 +51,10 @@ class LoginActivity : AppCompatActivity() {
                     // Redirige a MainActivityCliente y pasa el nombre de usuario
                     val intent = Intent(this, MainActivityCliente::class.java).apply {
                         putExtra("usuario_nombre", usuario.nombreUsuario) // Cambia 'nombreUsuario' al campo que corresponde
+                        putExtra("usuario_id", usuario.id)
                     }
                     startActivity(intent)
-                    finish() // Finaliza LoginActivity
+                    finish()
                 } else {
                     // Credenciales incorrectas
                     Toast.makeText(this, "Los datos ingresados no son correctos", Toast.LENGTH_LONG).show()
