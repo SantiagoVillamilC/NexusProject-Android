@@ -21,7 +21,7 @@ open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         // Crear tabla Usuarios
         val createUsuariosTable = """
             CREATE TABLE $TABLE_USUARIOS (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,-
                 nombre_usuario TEXT NOT NULL,
                 contrasena TEXT NOT NULL,
                 correo_electronico TEXT NOT NULL,

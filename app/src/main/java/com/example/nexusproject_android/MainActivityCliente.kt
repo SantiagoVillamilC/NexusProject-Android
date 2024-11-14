@@ -1,29 +1,25 @@
 package com.example.nexusproject_android
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexusproject_android.db.dbProductos
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import android.Manifest
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.OnCompleteListener
 import java.util.Locale
 
 class MainActivityCliente : AppCompatActivity() {
@@ -31,6 +27,9 @@ class MainActivityCliente : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var txtLocation: TextView
     private lateinit var btnRetryLocation: Button
+
+    // Recibe el ID del usuario desde LoginActivity
+    private var idUsuario: Int = -1
 
     data class Product(
         val idProducto: Int,
@@ -48,13 +47,11 @@ class MainActivityCliente : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_cliente)
 
-        // Inicializar elementos UI y servicios de ubicación
         txtLocation = findViewById(R.id.txtLocation)
         btnRetryLocation = findViewById(R.id.btnRetryLocation)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         obtenerUbicacion()
-
         btnRetryLocation.setOnClickListener {
             obtenerUbicacion()
         }
@@ -62,7 +59,12 @@ class MainActivityCliente : AppCompatActivity() {
         val nombreUsuario = intent.getStringExtra("usuario_nombre")
         findViewById<TextView>(R.id.txtwelcomeText).text = "Hola, $nombreUsuario"
 
-        // Cargar productos iniciales en la base de datos
+        idUsuario = intent.getIntExtra("usuario_id", -1)
+
+        // Inicializa el RecyclerView y su adaptador
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+
         cargarProductosIniciales()
 
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnViewCart).setOnClickListener {
@@ -75,7 +77,7 @@ class MainActivityCliente : AppCompatActivity() {
         findViewById<Button>(R.id.btnLogout).setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Cerrar Sesión")
-                .setMessage("¿Estás seguro de que deseas cerrar sesión?")
+                .setMessage("¿Estás seguro/a de que deseas cerrar sesión?")
                 .setPositiveButton("Sí") { _, _ ->
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -134,7 +136,6 @@ class MainActivityCliente : AppCompatActivity() {
         }
     }
 
-    // Manejar la respuesta del usuario a la solicitud de permisos
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
@@ -168,9 +169,6 @@ class MainActivityCliente : AppCompatActivity() {
         productList = productos
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = ProductAdapter(productList)
+        recyclerView.adapter = ProductAdapter(productList, this, idUsuario)
     }
-
-
 }

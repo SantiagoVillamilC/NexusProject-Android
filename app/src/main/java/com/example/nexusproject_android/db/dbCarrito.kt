@@ -14,26 +14,20 @@ data class CarritoItem(
 class dbCarrito(context: Context) : DbHelper(context) {
 
     // Método para insertar un producto en el carrito
-    fun insertarProductoCarrito(idUsuario: Int, idProducto: Int, cantidad: Int): Long {
-        var id: Long = 0
-        try {
-            val db: SQLiteDatabase = this.writableDatabase
-
-            val values = ContentValues().apply {
-                put("id_usuario", idUsuario)
-                put("id_producto", idProducto)
-                put("cantidad", cantidad)
-            }
-
-            id = db.insert(TABLE_CARRITO, null, values)
-            db.close()
-        } catch (ex: Exception) {
-            ex.printStackTrace()
+    fun insertarProductoCarrito(idUsuario: Int, idProducto: Int, cantidad: Int): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("id_usuario", idUsuario)
+            put("id_producto", idProducto)
+            put("cantidad", cantidad)
         }
-        return id
+        val result = db.insert(TABLE_CARRITO, null, values)
+        db.close()
+        return if (result == -1L) 0 else 1  // Retorna 0 si hay error, 1 si fue exitoso
     }
 
-    // Método para obtener los productos del carrito de un usuario
+
+    // Método para obtener los productos del carrito de un usuario "viejo"
     fun obtenerProductosDelCarrito(idUsuario: Int): List<CarritoItem> {
         val items = mutableListOf<CarritoItem>()
         val db = this.readableDatabase
@@ -53,6 +47,31 @@ class dbCarrito(context: Context) : DbHelper(context) {
         db.close()
         return items
     }
+
+    // Obtener la cantidad de un producto en el carrito
+    fun obtenerCantidadProducto(idUsuario: Int, idProducto: Int): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT cantidad FROM $TABLE_CARRITO WHERE id_usuario = ? AND id_producto = ?", arrayOf(idUsuario.toString(), idProducto.toString()))
+        var cantidad = 0
+        if (cursor.moveToFirst()) {
+            cantidad = cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
+        }
+        cursor.close()
+        db.close()
+        return cantidad
+    }
+
+    // Actualizar la cantidad de un producto en el carrito
+    fun actualizarCantidadProducto(idUsuario: Int, idProducto: Int, cantidad: Int): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("cantidad", cantidad)
+        }
+        val result = db.update(TABLE_CARRITO, values, "id_usuario = ? AND id_producto = ?", arrayOf(idUsuario.toString(), idProducto.toString()))
+        db.close()
+        return result
+    }
+
 
     // Método para eliminar un producto del carrito
     fun eliminarProductoDelCarrito(id: Int) {

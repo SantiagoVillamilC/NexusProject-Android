@@ -30,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+
+
         // Inicializa los elementos de la interfaz
         txtNombreUsuarioLogin = findViewById(R.id.txtNombreUsuarioLogin)
         txtContraseñaLogin = findViewById(R.id.txtContraseñaLogin)
@@ -71,4 +73,5 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }
