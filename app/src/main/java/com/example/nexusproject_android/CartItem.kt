@@ -3,45 +3,19 @@ package com.example.nexusproject_android
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Product(
-    val name: String,
-    val price: String,
-    val imageUrl: String  // Cambiado a String para el nombre del recurso drawable
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: ""
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeString(price)
-        parcel.writeString(imageUrl)  // Guardar imageUrl como String
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Product> {
-        override fun createFromParcel(parcel: Parcel): Product {
-            return Product(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Product?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
 data class CartItem(
     val product: Product,
     var quantity: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Product::class.java.classLoader) ?: Product("", "", ""),
-        parcel.readInt()
+        // Leer todos los parámetros necesarios para construir un Product
+        Product(
+            parcel.readInt(), // idProducto
+            parcel.readString() ?: "", // nombre
+            parcel.readDouble(), // precio
+            parcel.readString() ?: "" // imageUrl
+        ),
+        parcel.readInt() // quantity
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -63,3 +37,4 @@ data class CartItem(
         }
     }
 }
+

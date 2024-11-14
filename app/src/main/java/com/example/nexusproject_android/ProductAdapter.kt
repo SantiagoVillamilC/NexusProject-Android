@@ -43,19 +43,29 @@ class ProductAdapter(private val productList: List<MainActivityCliente.Product>,
 
     private fun agregarAlCarrito(idProducto: Int) {
         val dbCarrito = dbCarrito(context)
+        // Verificamos si el producto ya está en el carrito
         val cantidadActual = dbCarrito.obtenerCantidadProducto(idUsuario, idProducto)
 
-        val cantidadNueva = if (cantidadActual > 0) cantidadActual + 1 else 1
-        val result = if (cantidadActual > 0) {
-            dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, cantidadNueva)
-        } else {
-            dbCarrito.insertarProductoCarrito(idUsuario, idProducto, cantidadNueva)
-        }
+        if (cantidadActual > 0) {
+            // Si ya está en el carrito, solo actualizamos la cantidad
+            val cantidadNueva = cantidadActual + 1
+            val result = dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, cantidadNueva)
 
-        if (result > 0) {
-            Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            if (result > 0) {
+                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Error al actualizar el carrito", Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(context, "Error al agregar al carrito", Toast.LENGTH_SHORT).show()
+            // Si no está en el carrito, lo insertamos
+            val result = dbCarrito.insertarProductoCarrito(idUsuario, idProducto, 1)
+
+            if (result > 0) {
+                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Error al agregar al carrito", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
+

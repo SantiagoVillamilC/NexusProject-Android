@@ -68,10 +68,11 @@ class MainActivityCliente : AppCompatActivity() {
         cargarProductosIniciales()
 
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnViewCart).setOnClickListener {
-            Log.d("MainActivityCliente", "Cart Items: $cartItems")
             val intent = Intent(this, CartActivity::class.java)
             intent.putParcelableArrayListExtra("cartItems", ArrayList(cartItems))
+            val cartItems = intent.getParcelableArrayListExtra<CartItem>("cartItems") ?: mutableListOf()
             startActivity(intent)
+
         }
 
         findViewById<Button>(R.id.btnLogout).setOnClickListener {
