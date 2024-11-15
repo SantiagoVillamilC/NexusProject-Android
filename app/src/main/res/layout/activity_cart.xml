@@ -1,30 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@drawable/wave"
+android:padding="16dp">
+
+<!-- Mensaje cuando el carrito está vacío -->
+<TextView
+    android:id="@+id/emptyCartMessage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Tu carrito está vacío"
+    android:visibility="gone"
+    android:textSize="18sp"
+    android:textColor="@color/black"/>
+
+<!-- RecyclerView para los productos del carrito -->
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerViewCart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wave"
-    tools:context=".CartActivity">
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp" />
+<!-- Precio total -->
+<TextView
+    android:id="@+id/totalPrice"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Total: $0.00"
+    android:textSize="18sp"
+    android:textColor="@color/black"
+    android:layout_gravity="end"/>
 
-    <TextView
-        android:id="@+id/emptyCartMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agrega algo a tu carrito"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!-- Botón para confirmar la compra -->
+<Button
+    android:id="@+id/confirmButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Confirmar Compra"
+    android:textSize="18sp"
+    android:textColor="@color/white"
+    android:backgroundTint="@color/blue"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
