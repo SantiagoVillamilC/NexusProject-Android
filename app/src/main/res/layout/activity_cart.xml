@@ -23,17 +23,18 @@ android:padding="16dp">
     android:layout_weight="1"/>
 
 <!-- Precio total -->
-<TextView
-    android:id="@+id/totalPrice"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Total: $0.00"
-    android:textSize="18sp"
-    android:textColor="@color/black"
-    android:layout_gravity="end"/>
 
-<!-- Botón para confirmar la compra -->
-<Button
+    <!-- Botón para confirmar la compra -->
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Total: $0.00"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <Button
     android:id="@+id/confirmButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

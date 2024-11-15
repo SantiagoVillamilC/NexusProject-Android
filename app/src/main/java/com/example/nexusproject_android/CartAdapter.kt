@@ -44,11 +44,20 @@ class CartAdapter(private val context: Context, private val cartList: MutableLis
             if (cartItem.quantity > 1) {
                 actualizarCantidad(cartItem.product.idProducto, cartItem.quantity - 1, position, holder)
             } else {
-                cartList.removeAt(position)
-                notifyItemRemoved(position)
-                (context as CartActivity).updateTotalPrice() // Actualiza el total al eliminar un producto
+                // Eliminar producto de la base de datos y del RecyclerView
+                val dbCarrito = dbCarrito(context)
+                val result = dbCarrito.eliminarProductoDelCarrito(cartItem.product.idProducto)
+                if (result > 0) {
+                    cartList.removeAt(position) // Eliminar del RecyclerView
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, cartList.size) // Actualizar el rango
+                    (context as CartActivity).updateTotalPrice() // Actualizar el precio total
+                } else {
+                    Toast.makeText(context, "Error al eliminar el producto", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -57,16 +66,28 @@ class CartAdapter(private val context: Context, private val cartList: MutableLis
 
     private fun actualizarCantidad(idProducto: Int, nuevaCantidad: Int, position: Int, holder: CartViewHolder) {
         val dbCarrito = dbCarrito(context)
-        val result = dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, nuevaCantidad)
 
-        if (result > 0) {
-            // Actualiza la cantidad en la lista y notifica el cambio
-            cartList[position].quantity = nuevaCantidad
-            holder.productQuantity.text = nuevaCantidad.toString()
-            notifyItemChanged(position)
-            (context as CartActivity).updateTotalPrice() // Actualiza el total de la actividad
+        if (nuevaCantidad > 0) {
+            // Actualizar la cantidad en la base de datos
+            val result = dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, nuevaCantidad)
+            if (result > 0) {
+                // Actualiza la cantidad en la lista y notifica el cambio
+                cartList[position].quantity = nuevaCantidad
+                holder.productQuantity.text = nuevaCantidad.toString()
+                notifyItemChanged(position)
+                (context as CartActivity).updateTotalPrice() // Actualiza el total
+            } else {
+                Toast.makeText(context, "Error al actualizar la cantidad", Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(context, "Error al actualizar la cantidad", Toast.LENGTH_SHORT).show()
+            // Si la cantidad es 0, eliminar el producto
+            val carritoItemId = cartList[position].product.idProducto
+            dbCarrito.eliminarProductoDelCarrito(carritoItemId)
+            cartList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, cartList.size)
+            (context as CartActivity).updateTotalPrice() // Actualiza el total
         }
     }
+
 }

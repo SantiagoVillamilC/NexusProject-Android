@@ -81,11 +81,11 @@ class dbCarrito(context: Context) : DbHelper(context) {
     }
 
     // Método para eliminar un producto del carrito
-    fun eliminarProductoDelCarrito(id: Int) {
+    fun eliminarProductoDelCarrito(idProducto: Int): Int {
         val db = this.writableDatabase
-        db.delete(TABLE_CARRITO, "id = ?", arrayOf(id.toString()))
-        db.close()
+        return db.delete("Carrito", "id_producto = ?", arrayOf(idProducto.toString()))
     }
+
 
     // Método para limpiar el carrito de un usuario
     fun vaciarCarrito(idUsuario: Int) {
