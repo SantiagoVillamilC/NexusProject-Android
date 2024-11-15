@@ -50,17 +50,27 @@ class CartActivity : AppCompatActivity() {
         // Convertir CarritoItem a CartItem
         val cartItems = mutableListOf<CartItem>()
         for (item in carritoItemsFromDb) {
-            val product = getProductById(item.idProducto)  // Método para obtener el producto por ID
-            cartItems.add(CartItem(product, item.cantidad))
+            // Usar la información directamente de CarritoItem
+            val cartItem = CartItem(
+                product = Product(
+                    idProducto = item.idProducto,
+                    name = item.nombreProducto,
+                    price = item.precioProducto,
+                    imageUrl = item.imagenProducto // Usar el recurso de imagen directamente
+                ),
+                quantity = item.cantidad
+            )
+            cartItems.add(cartItem)
         }
         return cartItems
     }
 
+/*
     private fun getProductById(productId: Int): Product {
         // Consulta a la base de datos o acceder a una lista de productos
         // Aquí se debe devolver un producto con su respectiva imagen como un recurso entero (Int)
         return Product(productId, "Producto de ejemplo", 0.0, R.drawable.globo_aerostatico)  // Usa el recurso de imagen
-    }
+    }*/
 
     private fun updateCartMessage() {
         if (cartItems.isEmpty()) {
