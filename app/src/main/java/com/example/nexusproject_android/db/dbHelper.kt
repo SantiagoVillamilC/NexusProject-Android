@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2 //nueva version
         private const val DATABASE_NAME = "nexus.db"
 
         // Nombre de las tablas
@@ -21,7 +21,7 @@ open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         // Crear tabla Usuarios
         val createUsuariosTable = """
             CREATE TABLE $TABLE_USUARIOS (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,-
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nombre_usuario TEXT NOT NULL,
                 contrasena TEXT NOT NULL,
                 correo_electronico TEXT NOT NULL,
@@ -50,15 +50,21 @@ open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 id_usuario INTEGER,
                 id_producto INTEGER,
+                nombre_producto TEXT NOT NULL, 
+                imagenProducto INTEGER NOT NULL,
+                precio REAL NOT NULL,
                 cantidad INTEGER NOT NULL,
-                FOREIGN KEY (id_usuario) REFERENCES $TABLE_USUARIOS(id),
-                FOREIGN KEY (id_producto) REFERENCES $TABLE_PRODUCTOS(id_producto)
+                FOREIGN KEY (id_usuario) REFERENCES $TABLE_USUARIOS(id)
             )
         """.trimIndent()
         db.execSQL(createCarritoTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        if (oldVersion < newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_CARRITO")  // Elimina la tabla Carrito existente
+            onCreate(db)  // Vuelve a crear la tabla con el nuevo esquema
+        }
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIOS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCTOS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_CARRITO")

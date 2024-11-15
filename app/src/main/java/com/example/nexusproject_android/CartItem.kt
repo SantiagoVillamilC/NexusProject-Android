@@ -13,7 +13,7 @@ data class CartItem(
             parcel.readInt(), // idProducto
             parcel.readString() ?: "", // nombre
             parcel.readDouble(), // precio
-            parcel.readString() ?: "" // imageUrl
+            parcel.readInt() ?: 0 // imageUrl
         ),
         parcel.readInt() // quantity
     )
@@ -37,4 +37,3 @@ data class CartItem(
         }
     }
 }
-

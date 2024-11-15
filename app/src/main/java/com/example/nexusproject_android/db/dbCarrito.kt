@@ -8,17 +8,23 @@ data class CarritoItem(
     val id: Int = 0,
     val idUsuario: Int,
     val idProducto: Int,
+    val nombreProducto: String,
+    val precioProducto: Double,
+    val imagenProducto: Int,
     val cantidad: Int
 )
 
 class dbCarrito(context: Context) : DbHelper(context) {
 
     // Método para insertar un producto en el carrito
-    fun insertarProductoCarrito(idUsuario: Int, idProducto: Int, cantidad: Int): Int {
+    fun insertarProductoCarrito(idUsuario: Int, idProducto: Int, nombre: String, precio: Double, imagen: Int, cantidad: Int): Long {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put("id_usuario", idUsuario)
             put("id_producto", idProducto)
+            put("nombre_producto", nombre)
+            put("precio", precio)
+            put("imagenProducto", imagen)
             put("cantidad", cantidad)
         }
         val result = db.insert(TABLE_CARRITO, null, values)
@@ -26,8 +32,7 @@ class dbCarrito(context: Context) : DbHelper(context) {
         return if (result == -1L) 0 else 1  // Retorna 0 si hay error, 1 si fue exitoso
     }
 
-
-    // Método para obtener los productos del carrito de un usuario "viejo"
+    // Método para obtener los productos del carrito de un usuario
     fun obtenerProductosDelCarrito(idUsuario: Int): List<CarritoItem> {
         val items = mutableListOf<CarritoItem>()
         val db = this.readableDatabase
@@ -38,9 +43,12 @@ class dbCarrito(context: Context) : DbHelper(context) {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
                 val idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("id_usuario"))
                 val idProducto = cursor.getInt(cursor.getColumnIndexOrThrow("id_producto"))
+                val nombreProducto = cursor.getString(cursor.getColumnIndexOrThrow("nombre_producto"))
+                val precioProducto = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"))
+                val imagenProducto = cursor.getInt(cursor.getColumnIndexOrThrow("imagenProducto"))
                 val cantidad = cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
 
-                items.add(CarritoItem(id, idUsuario, idProducto, cantidad))
+                items.add(CarritoItem(id, idUsuario, idProducto, nombreProducto, precioProducto, imagenProducto, cantidad))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -71,7 +79,6 @@ class dbCarrito(context: Context) : DbHelper(context) {
         db.close()
         return result
     }
-
 
     // Método para eliminar un producto del carrito
     fun eliminarProductoDelCarrito(id: Int) {

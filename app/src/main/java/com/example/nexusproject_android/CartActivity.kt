@@ -47,7 +47,7 @@ class CartActivity : AppCompatActivity() {
         // Obtener los productos del carrito desde la base de datos
         val carritoItemsFromDb = dbCarrito.obtenerProductosDelCarrito(userId)
 
-        // Convertir CarritoItem a CartItem (puedes hacer una conversión si es necesario)
+        // Convertir CarritoItem a CartItem
         val cartItems = mutableListOf<CartItem>()
         for (item in carritoItemsFromDb) {
             val product = getProductById(item.idProducto)  // Método para obtener el producto por ID
@@ -56,10 +56,10 @@ class CartActivity : AppCompatActivity() {
         return cartItems
     }
 
-    // Método para obtener un producto por su ID (aquí puedes hacer una consulta a la base de datos o usar una lista de productos)
     private fun getProductById(productId: Int): Product {
         // Consulta a la base de datos o acceder a una lista de productos
-        return Product(productId, "Producto de ejemplo", 0.0, "imagen_producto")
+        // Aquí se debe devolver un producto con su respectiva imagen como un recurso entero (Int)
+        return Product(productId, "Producto de ejemplo", 0.0, R.drawable.globo_aerostatico)  // Usa el recurso de imagen
     }
 
     private fun updateCartMessage() {
@@ -92,10 +92,8 @@ class CartActivity : AppCompatActivity() {
             holder.productName.text = cartItem.product.name
             holder.productQuantity.text = cartItem.quantity.toString()
 
-            val imageResId = holder.itemView.context.resources.getIdentifier(
-                cartItem.product.imageUrl, "drawable", holder.itemView.context.packageName
-            )
-            holder.productImage.setImageResource(imageResId)
+            // Usar el recurso de imagen directamente
+            holder.productImage.setImageResource(cartItem.product.imageUrl)
 
             holder.increaseButton.setOnClickListener {
                 cartItem.quantity++

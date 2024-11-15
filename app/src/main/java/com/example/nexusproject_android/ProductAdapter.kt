@@ -43,29 +43,40 @@ class ProductAdapter(private val productList: List<MainActivityCliente.Product>,
 
     private fun agregarAlCarrito(idProducto: Int) {
         val dbCarrito = dbCarrito(context)
-        // Verificamos si el producto ya está en el carrito
-        val cantidadActual = dbCarrito.obtenerCantidadProducto(idUsuario, idProducto)
+        val product = productList.find { it.idProducto == idProducto }
 
-        if (cantidadActual > 0) {
-            // Si ya está en el carrito, solo actualizamos la cantidad
-            val cantidadNueva = cantidadActual + 1
-            val result = dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, cantidadNueva)
+        if (product != null) {
+            // Verificamos si el producto ya está en el carrito
+            val cantidadActual = dbCarrito.obtenerCantidadProducto(idUsuario, idProducto)
 
-            if (result > 0) {
-                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            if (cantidadActual > 0) {
+                // Si ya está en el carrito, solo actualizamos la cantidad
+                val cantidadNueva = cantidadActual + 1
+                val result = dbCarrito.actualizarCantidadProducto(idUsuario, idProducto, cantidadNueva)
+
+                if (result > 0) {
+                    Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Error al actualizar el carrito", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(context, "Error al actualizar el carrito", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            // Si no está en el carrito, lo insertamos
-            val result = dbCarrito.insertarProductoCarrito(idUsuario, idProducto, 1)
+                // Si no está en el carrito, lo insertamos con los nuevos valores
+                val result = dbCarrito.insertarProductoCarrito(
+                    idUsuario,
+                    idProducto,
+                    product.nombre,
+                    product.precio,
+                    product.imageUrl,  // Asumiendo que `imageUrl` es el recurso de la imagen
+                    1 // Cantidad inicial
+                )
 
-            if (result > 0) {
-                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "Error al agregar al carrito", Toast.LENGTH_SHORT).show()
+                if (result > 0) {
+                    Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Error al agregar al carrito", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
-}
 
+}

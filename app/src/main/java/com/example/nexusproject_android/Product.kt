@@ -7,20 +7,20 @@ data class Product(
     val idProducto: Int,
     val name: String,
     val price: Double,
-    val imageUrl: String
+    val imageUrl: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readDouble(),
-        parcel.readString() ?: ""
+        parcel.readInt() ?: 0
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(idProducto)
         parcel.writeString(name)
         parcel.writeDouble(price)
-        parcel.writeString(imageUrl)
+        parcel.writeInt(imageUrl)
     }
 
     override fun describeContents(): Int {
