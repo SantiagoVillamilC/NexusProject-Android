@@ -69,10 +69,8 @@
 
             findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnViewCart).setOnClickListener {
                 val intent = Intent(this, CartActivity::class.java)
-                intent.putParcelableArrayListExtra("cartItems", ArrayList(cartItems))
-                val cartItems = intent.getParcelableArrayListExtra<CartItem>("cartItems") ?: mutableListOf()
+                intent.putExtra("usuario_id", idUsuario) // Pasa el ID del usuario
                 startActivity(intent)
-
             }
 
             findViewById<Button>(R.id.btnLogout).setOnClickListener {

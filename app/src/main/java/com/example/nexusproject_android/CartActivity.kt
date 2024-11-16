@@ -26,33 +26,33 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        // Inicializar dbCarrito
         dbCarrito = dbCarrito(this)
 
-        // Obtener el id del usuario
-        val userId = 1  // Reemplazar con el id del usuario activo
+        // Recibir el ID del usuario
+        val userId = intent.getIntExtra("usuario_id", -1)
+        if (userId == -1) {
+            Toast.makeText(this, "Error: Usuario no identificado", Toast.LENGTH_SHORT).show()
+            finish() // Salir de la actividad si el ID no es válido
+            return
+        }
 
-        // Obtener los productos del carrito
+        // Obtener los productos del carrito del usuario
         cartItems = obtenerProductosDelCarrito(userId)
 
-        // Asignar vistas
+        // Configurar RecyclerView y vistas
         emptyCartMessage = findViewById(R.id.emptyCartMessage)
         recyclerView = findViewById(R.id.recyclerViewCart)
         totalPriceTextView = findViewById(R.id.totalPrice)
         confirmButton = findViewById(R.id.confirmButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        cartAdapter = CartAdapter(this, cartItems, userId) // Pasa el contexto y el usuario
+        cartAdapter = CartAdapter(this, cartItems, userId)
         recyclerView.adapter = cartAdapter
 
         updateCartMessage()
         updateTotalPrice()
-
-        confirmButton.setOnClickListener {
-            // Funcionalidad de confirmar compra (por implementar más adelante)
-            Toast.makeText(this, "Compra confirmada (funcionalidad pendiente)", Toast.LENGTH_SHORT).show()
-        }
     }
+
 
     private fun obtenerProductosDelCarrito(userId: Int): MutableList<CartItem> {
         val carritoItemsFromDb = dbCarrito.obtenerProductosDelCarrito(userId)

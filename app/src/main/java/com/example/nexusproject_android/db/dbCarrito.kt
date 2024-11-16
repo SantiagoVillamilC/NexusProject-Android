@@ -41,7 +41,6 @@ class dbCarrito(context: Context) : DbHelper(context) {
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
-                val idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("id_usuario"))
                 val idProducto = cursor.getInt(cursor.getColumnIndexOrThrow("id_producto"))
                 val nombreProducto = cursor.getString(cursor.getColumnIndexOrThrow("nombre_producto"))
                 val precioProducto = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"))
