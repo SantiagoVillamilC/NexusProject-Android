@@ -61,13 +61,20 @@ open class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // Si la versión es menor que la nueva, eliminamos las tablas existentes
         if (oldVersion < newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS $TABLE_CARRITO")  // Elimina la tabla Carrito existente
-            onCreate(db)  // Vuelve a crear la tabla con el nuevo esquema
+            // Eliminar tablas si existen
+            try {
+                db.execSQL("DROP TABLE IF EXISTS $TABLE_CARRITO")
+                db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIOS")
+                db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCTOS")
+            } catch (e: Exception) {
+                // En caso de algún error, lo registramos
+                e.printStackTrace()
+            }
+
+            // Llamar a onCreate para crear las tablas nuevamente
+            onCreate(db)
         }
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIOS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCTOS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_CARRITO")
-        onCreate(db)
     }
 }

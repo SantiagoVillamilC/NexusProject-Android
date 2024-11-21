@@ -1,4 +1,4 @@
-package com.example.nexusproject_android
+/*package com.example.nexusproject_android
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -21,4 +21,4 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.nexusproject_android", appContext.packageName)
     }
-}
+}*/

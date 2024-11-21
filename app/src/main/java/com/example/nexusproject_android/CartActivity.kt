@@ -1,11 +1,9 @@
 package com.example.nexusproject_android
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,8 +49,16 @@ class CartActivity : AppCompatActivity() {
 
         updateCartMessage()
         updateTotalPrice()
-    }
 
+        // Configurar el OnClickListener para el botón de confirmación
+        confirmButton.setOnClickListener {
+            // Crear un Intent para navegar a la PasarelaDePagoActivity
+            val intent = Intent(this, PasarelaDePago::class.java)
+            // Pasar el total
+            intent.putExtra("total_price", totalPriceTextView.text.toString())
+            startActivity(intent)  // Iniciar la actividad
+        }
+    }
 
     private fun obtenerProductosDelCarrito(userId: Int): MutableList<CartItem> {
         val carritoItemsFromDb = dbCarrito.obtenerProductosDelCarrito(userId)
@@ -84,7 +90,4 @@ class CartActivity : AppCompatActivity() {
         val totalPrice = cartItems.sumByDouble { it.product.price * it.quantity }
         totalPriceTextView.text = "Total: \$${"%.2f".format(totalPrice)}"
     }
-
 }
-
-

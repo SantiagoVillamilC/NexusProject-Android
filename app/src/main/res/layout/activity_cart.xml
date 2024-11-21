@@ -5,7 +5,6 @@ android:orientation="vertical"
 android:background="@drawable/wave"
 android:padding="16dp">
 
-<!-- Mensaje cuando el carrito está vacío -->
 <TextView
     android:id="@+id/emptyCartMessage"
     android:layout_width="wrap_content"
@@ -15,16 +14,12 @@ android:padding="16dp">
     android:textSize="18sp"
     android:textColor="@color/black"/>
 
-<!-- RecyclerView para los productos del carrito -->
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerViewCart"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"/>
 
-<!-- Precio total -->
-
-    <!-- Botón para confirmar la compra -->
     <TextView
         android:id="@+id/totalPrice"
         android:layout_width="wrap_content"
@@ -39,7 +34,7 @@ android:padding="16dp">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Confirmar Compra"
-    android:textSize="18sp"
+    android:textSize="20sp"
     android:textColor="@color/white"
     android:backgroundTint="@color/blue"/>
 
